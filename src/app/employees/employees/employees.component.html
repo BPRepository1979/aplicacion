@@ -1,0 +1,139 @@
+<div class="container">
+    <form #clienteForm="ngForm">
+    <div class="row text-center mt-5">
+      <div class="col">
+        <h2>Manteminiento de Empleados</h2>
+      </div>
+    </div>
+  
+    <div class="row text-center mt-4">
+      <div class="col">
+        <div class="row justify-content-center">
+          <div class="col-4">
+                    
+              <div class="card">
+                <div class="card-header">
+                  Datos Empleados
+                </div>
+                <div class="card-body">
+                  
+                  <input type="text" name="id" placeholder="ID" id="txtId" class="form-control" [(ngModel)]="employeesLista.id" disabled="true">
+                  <br>
+                  <input  type="text" name="Name" placeholder="Nombre" id="txtName" class="form-control" [(ngModel)]="employeesLista.name"  #Name="ngModel" required>
+                  <div class="alert alert-danger" *ngIf="Name.invalid && (Name.dirty || Name.touched)">
+                    <div >
+                      Debe ingresar un nombre                    
+                    </div>
+                    
+                  </div>
+
+                  <br>
+                  <input  type="text" name="Login" placeholder="login" id="txtLogin" class="form-control" [(ngModel)]="employeesLista.surname"  #Login="ngModel" required>
+                  <div class="alert alert-danger" *ngIf="Login.invalid && (Login.dirty || Login.touched)">
+                    <div >
+                      Debe ingresar un login                    
+                    </div>
+                    
+                  </div>
+  
+  
+                  <br>
+                  <input type="text" name="Email" placeholder="email" id="txtEmail" class="form-control" [(ngModel)]="employeesLista.email"  #Email="ngModel" required>
+                  <div class="alert alert-danger" *ngIf="Email.invalid && (Email.dirty || Email.touched)">
+                    <div >
+                      Debe ingresar un E-mail                   
+                    </div>
+                    
+                  </div>
+
+
+                  <br>
+                  <input type="text" name="Edad" placeholder="Edad" id="txtEdad" class="form-control" [(ngModel)]="employeesLista.age"  #Edad="ngModel" required>
+                  <div class="alert alert-danger" *ngIf="Edad.invalid && (Edad.dirty || Edad.touched)">
+                    <div >
+                      Debe ingresar un Edad                  
+                    </div>
+                    
+                  </div>
+
+                  
+                 
+                  <br>
+                 <select [(ngModel)]="opcionSeleccionado" name="status" #status="ngModel" class="form-control"  (change)="capturar()"  >
+                  <option
+                  *ngFor="let opt of options"
+                  [selected]="opt ===ngSelect"
+                  [value]="opt" >
+                  {{ opt }}
+                </option>
+                  
+               </select>
+
+               
+
+               <br>
+              
+
+
+               <p [hidden]="opcionSeleccionado == '0'">Haz seleccionado la opción # {{ verSeleccion }}
+                  <br>
+                  <div class="col">
+                    <button class="btn btn-success" type="button" (click)="agregarEmployees(employeesLista,verSeleccion)"  >Agregar</button>
+                    <button class="btn btn-warning m-2" type="button" (click)="updateEnterprises(employeesLista,verSeleccion)"  >Modificar</button>
+                    
+                    <button class="btn btn-primary m-2" type="button"  (click)="clear()" >Limpiar</button>
+                  </div>
+  
+                </div>
+              </div>
+  
+            
+          </div>
+          <div class="col-8">
+            <div class="card">
+              <div class="card-header">
+                Listado de Empresas
+              </div>
+              <div class="card-body">
+              <div class="col">
+                <table id="dtMascota" class="table table-striped" style="width: 100%;">
+                  <thead>
+                    <tr>
+                      <th>Seleccionar</th>
+                      <th>Id</th>
+                      <th>Nombre</th>
+                      <th>Login</th>
+                      <th>Email</th>
+                      <th>Edad</th>
+                      <th>Fecha Creación</th>
+                      <th>Cargo</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of datatable  | paginate: { itemsPerPage: 5, currentPage: p }">
+                      <td><input type="button" value="Seleccionar" (click)="onSetData(item)"></td>
+                      <td> {{ item.id }} </td>
+                      <td>{{ item.name}}</td>
+                      <td>{{ item.surname }}</td>
+                      <td>{{ item.email}}</td>
+                      <td>{{ item.age}}</td>
+                      <td>{{ item.createDate}}</td>
+                      <td>{{ item.position}}</td>
+                      <td>{{ item.status }}</td>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    
+    
+  </div>
+  </form>
